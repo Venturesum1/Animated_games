@@ -6,8 +6,13 @@ import { TiLocationArrow } from "react-icons/ti";
 
 import Button from "./Button";
 
-const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
-
+const navItems = [
+  { name: "Nexus", path: "#nexus" },
+  { name: "Vault", path: "#vault" },
+  { name: "Prologue", path: "#prologue" },
+  { name: "About", path: "https://zentry.com/about" }, // External link for About
+  { name: "Contact", path: "https://zentry.com/contact" },
+];
 const NavBar = () => {
   // State for toggling audio and visual indicator
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -86,11 +91,13 @@ const NavBar = () => {
             <div className="hidden md:block">
               {navItems.map((item, index) => (
                 <a
-                  key={index}
-                  href={`#${item.toLowerCase()}`}
-                  className="nav-hover-btn"
-                >
-                  {item}
+                key={index}
+                href={item.path} // Use href for navigation
+                //target={item.name === "About" ? "_blank" : "_self"} // Open About in a new tab
+                rel={item.name === "About" ? "noopener noreferrer" : undefined} // Security for external links
+                className="nav-hover-btn"
+              >
+                  {item.name}
                 </a>
               ))}
             </div>
